@@ -1,0 +1,74 @@
+﻿@model AnimeList.Class.ViewItens.DiretorViewItem
+
+@{
+    ViewData["Title"] = "Lista de Diretores";
+    ViewBag.Title = "Index";
+}
+
+@if (Model.Message != null)
+{
+    <div class="alert @(Model.Message.isSucess ? "alert-success" : "alert-danger") alert-dismissible fade show" role="alert">
+        @Model.Message.message
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+<div class="container">
+    <div class="row">
+        <h2>Manutenção de Diretores</h2>
+    </div>
+
+    <div class="row">
+        <span>@Html.ActionLink("Novo", "Edit", "Diretor", new { id = 0 }, new { @class = "btn btn-success btn-xs" })</span>
+    </div>
+
+    <div class="row">
+        <table class="table table-bordred table-striped">
+
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nome</th>
+                    <th>Data de Nascimento</th>
+                    <th>Sexo</th>
+                    <th>-</th>
+                    <th>-</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model.Diretores)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nome)
+                    </td>
+                    <td>
+                        @{ string dateContent = item.DataNascimento.HasValue ? item.DataNascimento.Value.ToString("dd/MM/yyyy") : ""; }
+                        @Html.DisplayFor(modelItem => dateContent)
+                    </td>
+                    <td>
+                        @{ string sexContent = Model.tradutorSexo.TraduzirSexo(item.Sexo); }
+                        @Html.DisplayFor(modelItem => sexContent)
+                    </td>
+                    <td>
+                        <p data-placement="top" data-toggle="tooltip" title="Editar">
+                            <span>@Html.ActionLink("Editar", "Edit", "Diretor", new { id = item.Id }, new { @class = "btn btn-primary btn-xs" })</span>
+                        </p>
+                    </td>
+                    <td>
+                        <p data-placement="top" data-toggle="tooltip" title="Deletar">
+                            <span>@Html.ActionLink("Deletar", "Delete", "Diretor", new { id = item.Id }, new { @class = "btn btn-danger btn-xs" })</span>
+                        </p>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
