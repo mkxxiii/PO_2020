@@ -1,0 +1,62 @@
+﻿@model AnimeList.Class.ViewItens.EpisodioViewItem
+
+@{
+    ViewData["Title"] = "Visualizar Anime";
+    ViewBag.Title = "Index";
+}
+
+@if (Model.Message != null)
+{
+    <div class="alert @(Model.Message.isSucess ? "alert-success" : "alert-danger") alert-dismissible fade show" role="alert">
+        @Model.Message.message
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+<div class="container">
+    <div class="row">
+        <h2>Assistir - @Model.Anime.Nome | @Model.Anime.NomeRomaji</h2>
+    </div>
+
+    <div class="row">
+        <span>@Html.ActionLink("Voltar", "Index", "Anime", new { @class = "btn btn-warning btn-xs" })</span>
+    </div>
+
+    <div class="row">
+        <table class="table table-bordred table-striped">
+
+            <thead>
+                <tr>
+                    <th>Numero Episodio</th>
+                    <th>Titulo</th>
+                    <th>Duracao (min)</th>
+                    <th>-</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model.Episodios)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NumeroEpisodio)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NomeEpisodio)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Duracao)
+                        </td>
+                        <td>
+                            <p data-placement="top" data-toggle="tooltip" title="Assistir">
+                                <span>@Html.ActionLink("Assistir", "WatchEp", "Anime", new { id = item.Id }, item.Visualizado ? new { @class = "btn btn-success btn-xs" } : new { @class = "btn btn-warning btn-xs" })</span>
+                            </p>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -15,6 +15,8 @@ namespace AnimeList.Models
         public string NomeEpisodio { get; set; }
         public short? Duracao { get; set; }
 
+        public bool Visualizado { get; set; }
+
         public virtual Anime IdAnimeNavigation { get; set; }
     }
 }

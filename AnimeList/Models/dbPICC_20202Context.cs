@@ -113,6 +113,8 @@ namespace AnimeList.Models
 
                 entity.Property(e => e.DataEstreia).HasColumnType("date");
 
+                entity.Property(e => e.Visualizado).HasColumnType("bit");
+
                 entity.Property(e => e.DataPrevista).HasColumnType("date");
 
                 entity.Property(e => e.NomeEpisodio)
